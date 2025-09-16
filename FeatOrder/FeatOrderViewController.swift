@@ -17,6 +17,7 @@ class FeatOrderViewControll: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
+        
     }
     
     
@@ -25,6 +26,12 @@ class FeatOrderViewControll: UIViewController{
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        tableView.register(FeatOrderCell.self, forCellReuseIdentifier: FeatOrderCell.identifier)
+        
+        tableView.snp.makeConstraints{make in
+            make.center.equalToSuperview()
+        }
 
     }
     
