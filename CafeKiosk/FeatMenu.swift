@@ -46,7 +46,7 @@ class FeatMenu: UIViewController {
         
         // appTitleLabel 위치
         appTitleLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(24)
+            $0.leading.equalToSuperview().offset(16)
             $0.top.equalToSuperview().offset(87)
         }
     }
