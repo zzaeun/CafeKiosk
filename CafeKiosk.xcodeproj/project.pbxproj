@@ -33,6 +33,11 @@
 			path = CafeKiosk;
 			sourceTree = "<group>";
 		};
+		508417E22E79322900878A36 /* FeatOrder */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = FeatOrder;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +55,7 @@
 		3A1BEFC52E79085500D29D4D = {
 			isa = PBXGroup;
 			children = (
+				508417E22E79322900878A36 /* FeatOrder */,
 				3A1BEFD02E79085500D29D4D /* CafeKiosk */,
 				3A1BEFCF2E79085500D29D4D /* Products */,
 			);
@@ -80,6 +86,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				3A1BEFD02E79085500D29D4D /* CafeKiosk */,
+				508417E22E79322900878A36 /* FeatOrder */,
 			);
 			name = CafeKiosk;
 			packageProductDependencies = (
@@ -160,6 +167,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -186,6 +194,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
