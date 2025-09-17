@@ -3,7 +3,7 @@ import UIKit
 
 extension FeatOrderViewControll: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        datas.count
+        dataArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -11,7 +11,7 @@ extension FeatOrderViewControll: UITableViewDelegate,UITableViewDataSource {
             return .init()
         }
         
-        let data = datas[indexPath.row]
+        let data = dataArray[indexPath.row]
         cell.configureTableView(with: data)
         return cell
     }
