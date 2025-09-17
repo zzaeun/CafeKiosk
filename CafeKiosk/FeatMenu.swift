@@ -13,7 +13,7 @@ class FeatMenu: UIViewController {
     let appTitleLabel = UILabel()
     let category: UISegmentedControl = {
         let segmentedControl = UISegmentedControl(items: ["Drink", "Food", "Product"])
-        
+        segmentedControl.selectedSegmentIndex = 0
         return segmentedControl
     }()
 
