@@ -9,8 +9,8 @@ class FeatOrderCell: UITableViewCell{
     weak var delegate: (TableViewDelegate)?
     
     static let identifier = "FeatOrderCell"
-    
-    let dataLabel = UILabel()
+    var unitPrice = 0
+    let nameLabel = UILabel()
     let plusButton: UIButton = {
         let button = UIButton()
         button.setTitle("+", for: .normal)
@@ -31,12 +31,7 @@ class FeatOrderCell: UITableViewCell{
         label.textColor = .black
         return label
     }()
-    var priceLabel: UILabel = {
-        let label = UILabel()
-        label.text = "5000"
-        label.textColor = .black
-        return label
-    }()
+    var priceLabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
@@ -56,8 +51,8 @@ class FeatOrderCell: UITableViewCell{
 
     func setupUI(){
         
-        contentView.addSubview(dataLabel)
-        dataLabel.snp.makeConstraints{make in
+        contentView.addSubview(nameLabel)
+        nameLabel.snp.makeConstraints{make in
             make.leading.equalToSuperview().inset(16)
             make.centerY.equalToSuperview()
         }
@@ -89,27 +84,32 @@ class FeatOrderCell: UITableViewCell{
         
     }
     
-    func configureTableView(with data: String){
-        self.dataLabel.text = data
+    func ConfigureTableView(nameData name: String, priceData price: Int){
+        nameLabel.text = name
+        self.unitPrice = price
+        priceLabel.text = "\(price)"
+        
     }
-    
     @objc func buttonTapped(){
         delegate?.isButtonTapped(in: self)
     }
     @objc func plusButtonTapped(){
+        
         guard let text = amountLabel.text, let result = Int(text) else {return}
-        guard let totalPrice = priceLabel.text, let priceResult = Int(totalPrice) else {return}
+        guard priceLabel.text != nil else {return}
         let newAmount = result +  1
-        let totalprice =  priceResult + priceResult
+        let totalprice =  unitPrice * newAmount
         amountLabel.text = "\(newAmount)"
         priceLabel.text = "\(totalprice)"
     }
     @objc func minusButtonTapped(){
         guard let text = amountLabel.text, let result = Int(text) else {return}
-        //amountLabel.text - 1
-        let newAmount = result -  1
         
+        guard priceLabel.text != nil else {return}
+        let newAmount = result -  1
+        let totalprice =  unitPrice * newAmount
         amountLabel.text = "\(newAmount)"
+        priceLabel.text = "\(totalprice)"
     }
 }
 

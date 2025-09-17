@@ -3,7 +3,7 @@ import UIKit
 
 extension FeatOrderViewControll: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        dataArray.count
+        return dataArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -11,8 +11,9 @@ extension FeatOrderViewControll: UITableViewDelegate,UITableViewDataSource {
             return .init()
         }
         
-        let data = dataArray[indexPath.row]
-        cell.configureTableView(with: data)
+        let menuName = dataArray[indexPath.row]
+        let menuPrice = orders[menuName] ?? 0
+        cell.ConfigureTableView(nameData: menuName, priceData: menuPrice)
         return cell
     }
     

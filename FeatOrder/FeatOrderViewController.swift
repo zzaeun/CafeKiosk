@@ -11,42 +11,47 @@ import SnapKit
 /// TableView를 활용하여 cell을 추가하며 cell에는 SetTitle 가격 정중앙에 숫자(1) [-] [+] 을 배치한다.
 class FeatOrderViewControll: UIViewController{
 
+    let menuItems: [(name: String, price: Int)] = [
+        (name: "아메리카노",price: 4500),
+        (name: "카페라떼",price: 4000)
+    ]
     //set은 순서가 없기 떄문에 indexPath.row를 사용할 수 없어 Array로 변환하기
-    var datas: Set<String> = [] {
+    var orders: [String: Int] = [:] {
         // datas Set이 변경될 때마다 이 코드가 실행
         // didSet은 새 값이 저장된 직후에 호출
         didSet{
             // Set을 Array로 변환 정렬시키기
-            dataArray = Array(datas).sorted()
+            dataArray = orders.keys.sorted()
             
             tableView.reloadData()
         }
     }
+
     var dataArray: [String] = []
     
-    let menuButton: UIButton = {
+    lazy var menuButton: UIButton = {
         let button = UIButton()
-        button.setTitle("아이스아메리카노", for: .normal)
-        
+        button.setTitle(menuItems[0].name, for: .normal)
+        button.tag = 0
         button.layer.cornerRadius = 13
         button.backgroundColor = .lightGray
         return button
     }()
     
-    let menuButton1: UIButton = {
+    lazy var menuButton1: UIButton = {
         let button = UIButton()
-        button.setTitle("카페라떼", for: .normal)
+        button.setTitle(menuItems[1].name, for: .normal)
+        button.tag = 1
         button.layer.cornerRadius = 13
         button.backgroundColor = .lightGray
         return button
     }()
     
     @objc func menuTapped(sender: UIButton){
-        if let title = sender.currentTitle{
-            datas.insert(title)
-            
-        }
+        let menuID = sender.tag
         
+        let selectMenu = menuItems[menuID]
+        orders[selectMenu.name] = selectMenu.price
     }
     let tableView = UITableView()
     
