@@ -73,13 +73,13 @@ class FeatOrderViewControll: UIViewController{
         menuButton.snp.makeConstraints{make in
             make.height.equalTo(80)
             make.width.equalTo(80)
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(30)
+            make.top.equalToSuperview().inset(30)
             make.centerX.equalToSuperview()
         }
         menuButton1.snp.makeConstraints{make in
             make.height.equalTo(80)
             make.width.equalTo(80)
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(30)
+            make.top.equalToSuperview().inset(30)
             
         }
         tableView.delegate = self
@@ -93,6 +93,7 @@ class FeatOrderViewControll: UIViewController{
         
         
         tableView.snp.makeConstraints{make in
+            
             make.top.equalTo(menuButton.snp.bottom).offset(60)
             make.height.equalTo(200)
             make.width.equalTo(300)
