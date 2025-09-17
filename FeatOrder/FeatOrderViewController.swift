@@ -57,7 +57,7 @@ class FeatOrderViewControll: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .clear
         view.layer.cornerRadius = 12
         
         configureView()
@@ -87,6 +87,7 @@ class FeatOrderViewControll: UIViewController{
         tableView.layer.borderColor = UIColor(hex: 0x00704A).cgColor
         tableView.layer.borderWidth = 1
         tableView.layer.cornerRadius = 20
+        tableView.backgroundColor = .clear
         
         tableView.register(FeatOrderCell.self, forCellReuseIdentifier: FeatOrderCell.identifier)
         

@@ -14,6 +14,7 @@ extension FeatOrderViewControll: UITableViewDelegate,UITableViewDataSource {
         let menuName = dataArray[indexPath.row]
         let menuPrice = orders[menuName] ?? 0
         cell.ConfigureTableView(nameData: menuName, priceData: menuPrice)
+        cell.backgroundColor = .clear
         return cell
     }
     

@@ -35,7 +35,6 @@ class FeatOrderCell: UITableViewCell{
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .clear
         contentView.backgroundColor = .clear
         setupUI()
         configuerVies()
@@ -50,6 +49,7 @@ class FeatOrderCell: UITableViewCell{
     }
 
     func setupUI(){
+        
         
         contentView.addSubview(nameLabel)
         nameLabel.snp.makeConstraints{make in
