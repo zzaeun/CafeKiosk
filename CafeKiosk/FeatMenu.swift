@@ -17,16 +17,27 @@ class FeatMenu: UIViewController {
         return segmentedControl
     }()
 
+    // 각 메뉴 스택 뷰를 lazy 프로퍼티로 선언
+    lazy var drinkHstack = self.menuHstack(type: .drink)
+    lazy var foodHstack = self.menuHstack(type: .food)
+    lazy var productHstack = self.menuHstack(type: .product)
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         configureUI()
         setConstraints()
+        
+        drinkHstack.isHidden = false
+        foodHstack.isHidden = true
+        productHstack.isHidden = true
+        
+        category.addTarget(self, action: #selector(tappedSegmentedControl), for: .valueChanged)
     }
 
     func configureUI() {
-        [appTitleLabel, category].forEach {
+        [appTitleLabel, category, drinkHstack, foodHstack, productHstack].forEach {
             view.addSubview($0)
         }
         
@@ -56,11 +67,12 @@ class FeatMenu: UIViewController {
             $0.height.equalTo(32)
         }
         
-        let menuHstack = menuHstack()
-        view.addSubview(menuHstack)
-        menuHstack.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalTo(category.snp.bottom).offset(24)
+        
+        [drinkHstack, foodHstack, productHstack].forEach {
+            $0.snp.makeConstraints {
+                $0.centerX.equalToSuperview()
+                $0.top.equalTo(category.snp.bottom).offset(24)
+            }
         }
 
     }
@@ -105,34 +117,68 @@ class FeatMenu: UIViewController {
         return Vstack
     }
     
-    func menuHstack() -> UIStackView {
+    enum menuType {
+        case drink, food, product
+    }
+    
+    func menuHstack(type: menuType) -> UIStackView {
+        
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 12
+        
+        
         // Drink
-        let drink1 = menu(Image: "아이스아메리카노", title: "아이스 아메리카노")
-        let drink2 = menu(Image: "자몽허니블랙티", title: "자몽 허니 블랙티")
-        let drink3 = menu(Image: "자바칩프라푸치노", title: "자바칩 프라푸치노")
+        switch type {
+        case .drink:
+            let drink1 = menu(Image: "아이스아메리카노", title: "아이스 아메리카노")
+            let drink2 = menu(Image: "자몽허니블랙티", title: "자몽 허니 블랙티")
+            let drink3 = menu(Image: "자바칩프라푸치노", title: "자바칩 프라푸치노")
+            [drink1, drink2, drink3].forEach {
+                stackView.addArrangedSubview($0)
+            }
+            
+            // Food
+        case .food:
+            let food1 = menu(Image: "멜팅치즈베이컨토스트", title: "멜팅 치즈 \n베이컨 토스트")
+            let food2 = menu(Image: "바게트소금빵", title: "바게트 소금빵")
+            let food3 = menu(Image: "진한가나슈9레이어케이크", title: "진한 가나슈 9\n레이어 케이크")
+            [food1, food2, food3].forEach {
+                stackView.addArrangedSubview($0)
+            }
+            
+            // Product
+        case .product:
+            let product1 = menu(Image: "별바당블렌드", title: "별바당 블렌드 250g")
+            let product2 = menu(Image: "시그니처사이렌머그", title: "시그니처 사이렌\n머그 237ml")
+            let product3 = menu(Image: "SS커넥티드콩코드텀블러", title: "SS 커넥티드\n콩코드 텀블러 591ml")
+            [product1, product2, product3].forEach {
+                stackView.addArrangedSubview($0)
+            }
+
+        }
         
-        let drinkHstack = UIStackView(arrangedSubviews: [drink1, drink2, drink3])
-        drinkHstack.axis = .horizontal
-        drinkHstack.spacing = 22
+        return stackView
         
-        // Food
-        let food1 = menu(Image: "멜팅치즈베이컨토스트", title: "멜팅 치즈 \n베이컨 토스트")
-        let food2 = menu(Image: "바게트소금빵", title: "바게트 소금빵")
-        let food3 = menu(Image: "진한가나슈9레이어케이크", title: "진한 가나슈 9\n레이어 케이크")
+    }
+    
+    @objc
+    func tappedSegmentedControl(_ sender: UISegmentedControl) {
+        // 모든 스택 뷰 숨기기
+        drinkHstack.isHidden = true
+        foodHstack.isHidden = true
+        productHstack.isHidden = true
         
-        let foodHstack = UIStackView(arrangedSubviews: [food1, food2, food3])
-        foodHstack.axis = .horizontal
-        foodHstack.spacing = 22
-        
-        // Product
-        let product1 = menu(Image: "별바당블렌드", title: "별바당 블렌드 250g")
-        let product2 = menu(Image: "시그니처사이렌머그", title: "시그니처 사이렌\n머그 237ml")
-        let product3 = menu(Image: "SS커넥티드콩코드텀블러", title: "SS 커넥티드\n콩코드 텀블러 591ml")
-        
-        let productHstack = UIStackView(arrangedSubviews: [product1, product2, product3])
-        productHstack.axis = .horizontal
-        productHstack.spacing = 22
-        
-        return drinkHstack
+        // 선택된 스택만 보이게
+        switch sender.selectedSegmentIndex {
+        case 0:
+            drinkHstack.isHidden = false
+        case 1:
+            foodHstack.isHidden = false
+        case 2:
+            productHstack.isHidden = false
+        default:
+            break
+        }
     }
 }
