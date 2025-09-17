@@ -11,17 +11,11 @@ import SnapKit
 class FeatMenu: UIViewController {
 
     let appTitleLabel = UILabel()
-//    let segmentedControl: UISegmentedControl = {
-//        let category = UISegmentedControl(items: ["Drink", "Food", "Products"])
-//        category.translatesAutoresizingMaskIntoConstraints = false
-//        return category
-//    }()
-//    let Drink: UIView = {
-//        let view = UIView()
-//        view.backgroundColor = .green
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        return view
-//    }()
+    let category: UISegmentedControl = {
+        let segmentedControl = UISegmentedControl(items: ["Drink", "Food", "Products"])
+        
+        return segmentedControl
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +25,7 @@ class FeatMenu: UIViewController {
     }
 
     func configureUI() {
-        [appTitleLabel].forEach {
+        [appTitleLabel, category].forEach {
             view.addSubview($0)
         }
         
@@ -40,6 +34,9 @@ class FeatMenu: UIViewController {
         appTitleLabel.font = .systemFont(ofSize: 25, weight: .semibold)
         appTitleLabel.textColor = .black
 
+        // segementedContorl 디자인
+        category.selectedSegmentTintColor = UIColor(red: 0/255, green: 112/255, blue: 74/255, alpha: 1.0)
+        category.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
     }
     
     func setConstraints() {
@@ -48,6 +45,14 @@ class FeatMenu: UIViewController {
         appTitleLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(16)
             $0.top.equalToSuperview().offset(87)
+        }
+        
+        // SegmentedControl
+        category.snp.makeConstraints{
+            $0.top.equalTo(appTitleLabel.snp.bottom).offset(18)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(370)
+            $0.height.equalTo(32)
         }
     }
 
