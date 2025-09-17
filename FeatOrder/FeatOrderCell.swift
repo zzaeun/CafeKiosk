@@ -1,12 +1,12 @@
 import Foundation
 import UIKit
 
-protocol TableViewDelegate: AnyObject{
-    func isButtonTapped(in cell: FeatOrderCell)
+protocol FeatOrderCellDelegate: AnyObject{
+    func quantityDidChange(for cell: FeatOrderCell, newQuantity: Int)
 }
 
 class FeatOrderCell: UITableViewCell{
-    weak var delegate: (TableViewDelegate)?
+    weak var delegate: FeatOrderCellDelegate?
     
     static let identifier = "FeatOrderCell"
     var unitPrice = 0
@@ -22,7 +22,7 @@ class FeatOrderCell: UITableViewCell{
         let button = UIButton()
         button.setTitle("-", for: .normal)
         button.setTitleColor(.black, for: .normal)
-
+        
         return button
     }()
     var amountLabel: UILabel = {
@@ -37,17 +37,12 @@ class FeatOrderCell: UITableViewCell{
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = .clear
         setupUI()
-        configuerVies()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configuerVies(){
-        
-    }
-
     func setupUI(){
         
         
@@ -84,32 +79,31 @@ class FeatOrderCell: UITableViewCell{
         
     }
     
-    func ConfigureTableView(nameData name: String, priceData price: Int){
+    func ConfigureTableView(nameData name: String, priceData price: Int, amountCount count: Int){
         nameLabel.text = name
         self.unitPrice = price
-        priceLabel.text = "\(price)"
+        amountLabel.text = "\(count)"
+        priceLabel.text = "\(price * count)"
         
     }
-    @objc func buttonTapped(){
-        delegate?.isButtonTapped(in: self)
-    }
+    
     @objc func plusButtonTapped(){
-        
         guard let text = amountLabel.text, let result = Int(text) else {return}
         guard priceLabel.text != nil else {return}
         let newAmount = result +  1
         let totalprice =  unitPrice * newAmount
         amountLabel.text = "\(newAmount)"
         priceLabel.text = "\(totalprice)"
+        delegate?.quantityDidChange(for: self, newQuantity: newAmount)
     }
     @objc func minusButtonTapped(){
         guard let text = amountLabel.text, let result = Int(text) else {return}
-        
         guard priceLabel.text != nil else {return}
         let newAmount = result -  1
         let totalprice =  unitPrice * newAmount
         amountLabel.text = "\(newAmount)"
         priceLabel.text = "\(totalprice)"
+        delegate?.quantityDidChange(for: self, newQuantity: newAmount)
     }
 }
 

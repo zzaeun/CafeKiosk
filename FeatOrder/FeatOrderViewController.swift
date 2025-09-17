@@ -10,20 +10,14 @@ import SnapKit
 /// 정중앙에 숫자는 음수를 나타낼 수 없다. 0이면 삭제하는게 처리방식이 더 좋을듯함
 /// TableView를 활용하여 cell을 추가하며 cell에는 SetTitle 가격 정중앙에 숫자(1) [-] [+] 을 배치한다.
 class FeatOrderViewControll: UIViewController{
-
     let menuItems: [(name: String, price: Int)] = [
         (name: "아메리카노",price: 4500),
         (name: "카페라떼",price: 4000)
     ]
-    //set은 순서가 없기 떄문에 indexPath.row를 사용할 수 없어 Array로 변환하기
-    var orders: [String: Int] = [:] {
-        // datas Set이 변경될 때마다 이 코드가 실행
-        // didSet은 새 값이 저장된 직후에 호출
+
+    var orders: [String: (price: Int, quantity: Int)] = [:] {
         didSet{
-            // Set을 Array로 변환 정렬시키기
-            dataArray = orders.keys.sorted()
-            
-            tableView.reloadData()
+            updateTotalCountAndReload()
         }
     }
 
@@ -46,15 +40,17 @@ class FeatOrderViewControll: UIViewController{
         button.backgroundColor = .lightGray
         return button
     }()
-    
-    @objc func menuTapped(sender: UIButton){
-        let menuID = sender.tag
-        
-        let selectMenu = menuItems[menuID]
-        orders[selectMenu.name] = selectMenu.price
-    }
+
     let tableView = UITableView()
     
+    let totalMenuCount: UILabel = {
+        let count = UILabel()
+        count.layer.borderWidth = 1
+        count.text = "총 0개"
+        return count
+    }()
+    let totalMenuPrice = UILabel()
+    let orderAmount = UILabel()
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear
@@ -70,6 +66,10 @@ class FeatOrderViewControll: UIViewController{
         view.addSubview(tableView)
         view.addSubview(menuButton)
         view.addSubview(menuButton1)
+        view.addSubview(totalMenuCount)
+        view.addSubview(totalMenuPrice)
+        view.addSubview(orderAmount)
+        
         menuButton.snp.makeConstraints{make in
             make.height.equalTo(80)
             make.width.equalTo(80)
@@ -97,11 +97,26 @@ class FeatOrderViewControll: UIViewController{
             make.height.equalTo(200)
             make.width.equalTo(300)
             make.centerX.equalToSuperview()
-            
-            
         }
         menuButton.addTarget(self, action: #selector(menuTapped), for: .touchUpInside)
         menuButton1.addTarget(self, action: #selector(menuTapped), for: .touchUpInside)
+        
+        totalMenuCount.snp.makeConstraints{make in
+            make.bottom.equalTo(tableView.snp.top)
+            make.trailing.equalTo(tableView.snp.trailing)
+        }
+        totalMenuPrice.snp.makeConstraints{make in
+            make.top.equalTo(tableView.snp.bottom)
+            totalMenuPrice.text = "1234원"
+            totalMenuPrice.layer.borderWidth = 1
+            make.trailing.equalTo(tableView.snp.trailing)
+        }
+        orderAmount.snp.makeConstraints{make in
+            make.top.equalTo(tableView.snp.bottom)
+            orderAmount.text = "주문금액"
+            orderAmount.layer.borderWidth = 1
+            make.leading.equalTo(tableView.snp.leading)
+        }
     }
     
 }
