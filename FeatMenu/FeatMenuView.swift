@@ -46,7 +46,9 @@ class FeatMenuView: UIView {
         Vstack.axis = .vertical
         Vstack.alignment = .center
         Vstack.spacing = 10
-
+        
+        
+        
         Vstack.snp.makeConstraints{
             $0.width.equalTo(105)
             $0.height.equalTo(150)
@@ -64,4 +66,7 @@ class FeatMenuView: UIView {
             return stackView
         
     }
+}
+#Preview{
+    ViewController()
 }

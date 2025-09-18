@@ -1,9 +1,3 @@
-//
-//  FeatOrderViewControllExtension.swift
-//  CafeKiosk
-//
-//  Created by s s on 9/17/25.
-//
 
 import Foundation
 import UIKit

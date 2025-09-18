@@ -31,15 +31,7 @@ class FeatOrderViewControll: UIViewController{
         button.backgroundColor = .lightGray
         return button
     }()
-    
-    lazy var menuButton1: UIButton = {
-        let button = UIButton()
-        button.setTitle(menuItems[1].name, for: .normal)
-        button.tag = 1
-        button.layer.cornerRadius = 13
-        button.backgroundColor = .lightGray
-        return button
-    }()
+ 
 
     let tableView = UITableView()
     
@@ -64,7 +56,6 @@ class FeatOrderViewControll: UIViewController{
     func configureView(){
         view.addSubview(tableView)
         view.addSubview(menuButton)
-        view.addSubview(menuButton1)
         view.addSubview(totalMenuCount)
         view.addSubview(totalMenuPrice)
         view.addSubview(orderAmount)
@@ -75,12 +66,7 @@ class FeatOrderViewControll: UIViewController{
             make.top.equalToSuperview().inset(30)
             make.centerX.equalToSuperview()
         }
-        menuButton1.snp.makeConstraints{make in
-            make.height.equalTo(80)
-            make.width.equalTo(80)
-            make.top.equalToSuperview().inset(30)
-            
-        }
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.layer.borderColor = UIColor(hex: 0x00704A).cgColor
@@ -99,7 +85,6 @@ class FeatOrderViewControll: UIViewController{
             make.centerX.equalToSuperview()
         }
         menuButton.addTarget(self, action: #selector(menuTapped), for: .touchUpInside)
-        menuButton1.addTarget(self, action: #selector(menuTapped), for: .touchUpInside)
         
         totalMenuCount.snp.makeConstraints{make in
             make.bottom.equalTo(tableView.snp.top).offset(-4)
@@ -123,5 +108,5 @@ class FeatOrderViewControll: UIViewController{
     
 }
 #Preview{
-    FeatOrderViewControll()
+    ViewController()
 }

@@ -1,9 +1,3 @@
-//
-//  FeatMenuViewController.swift
-//  CafeKiosk
-//
-//  Created by 이정은 on 9/18/25.
-//
 
 import UIKit
 import SnapKit
@@ -25,7 +19,6 @@ class FeatMenuViewController: UIViewController {
     lazy var foodHstack = menuView.menuHstack(items: FeatMenuData.food)
     lazy var productHstack = menuView.menuHstack(items: FeatMenuData.product)
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -36,10 +29,39 @@ class FeatMenuViewController: UIViewController {
         drinkHstack.isHidden = false
         foodHstack.isHidden = true
         productHstack.isHidden = true
+
+        /// drink 뷰에 메뉴 0번부터 Tag 생성 및 Gesture 추가
+        drinkHstack.arrangedSubviews.enumerated().forEach{
+            (index, menuView) in
+            menuView.isUserInteractionEnabled = true
+            menuView.tag = index
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(drinkMenuTapped(_ :)))
+            menuView.addGestureRecognizer(tapGesture)
+        }
+        /// food뷰에 메뉴 0번부터 Tag 생성 및 Gesture 추가
+        foodHstack.arrangedSubviews.enumerated().forEach{
+            (index, menuView) in
+            menuView.isUserInteractionEnabled = true
+            menuView.tag = index
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(foodMenuTapped(_ :)))
+            menuView.addGestureRecognizer(tapGesture)
+        }
+        
+        /// product뷰에 메뉴 0번부터 Tag 생성 및 Gesture 추가
+        productHstack.arrangedSubviews.enumerated().forEach{
+            (index, menuView) in
+            menuView.isUserInteractionEnabled = true
+            menuView.tag = index
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(productTapped(_ :)))
+            menuView.addGestureRecognizer(tapGesture)
+        }
         
         category.addTarget(self, action: #selector(tappedSegmentedControl), for: .valueChanged)
     }
 
+
+
+    
     func configureUI() {
         [appTitleLabel, category, drinkHstack, foodHstack, productHstack].forEach {
             view.addSubview($0)
@@ -81,6 +103,8 @@ class FeatMenuViewController: UIViewController {
 
     }
     
+
+    
     @objc
     func tappedSegmentedControl(_ sender: UISegmentedControl) {
         // 모든 스택 뷰 숨기기
@@ -100,4 +124,40 @@ class FeatMenuViewController: UIViewController {
             break
         }
     }
+    
+    //drink메뉴 탭 이벤트
+    @objc func drinkMenuTapped(_ sender: UITapGestureRecognizer){
+        guard let tappedView = sender.view else {return}
+        
+        let tappedIndex = tappedView.tag
+        
+        let selectredItem = FeatMenuData.drink[tappedIndex]
+        
+        print("\(selectredItem.title) \(selectredItem.price)")
+    }
+    
+    //food메뉴 탭 이벤트
+    @objc func foodMenuTapped(_ sender: UITapGestureRecognizer){
+        guard let tappedView = sender.view else {return}
+        
+        let tappedIndex = tappedView.tag
+        
+        let selectredItem = FeatMenuData.food[tappedIndex]
+        
+        print("\(selectredItem.title) \(selectredItem.price)")
+    }
+    
+    //product메뉴 탭 이벤트
+    @objc func productTapped(_ sender: UITapGestureRecognizer){
+        guard let tappedView = sender.view else {return}
+        
+        let tappedIndex = tappedView.tag
+        
+        let selectredItem = FeatMenuData.product[tappedIndex]
+        
+        print("\(selectredItem.title) \(selectredItem.price)")
+    }
+}
+#Preview{
+    ViewController()
 }

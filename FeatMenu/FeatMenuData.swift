@@ -1,9 +1,3 @@
-//
-//  FeatMenuData.swift
-//  CafeKiosk
-//
-//  Created by 이정은 on 9/18/25.
-//
 
 import Foundation
 import UIKit
