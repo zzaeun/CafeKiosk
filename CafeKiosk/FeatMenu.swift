@@ -77,7 +77,7 @@ class FeatMenu: UIViewController {
 
     }
 
-    func menu(Image: String, title: String) -> UIStackView {
+    func menu(Image: String, title: String, price: Int) -> UIStackView {
         // 배경 동그라미
         let circleView = UIView()
         circleView.backgroundColor = UIColor(red: 243/255, green: 240/255, blue: 233/255, alpha: 1)
@@ -131,27 +131,27 @@ class FeatMenu: UIViewController {
         // Drink
         switch type {
         case .drink:
-            let drink1 = menu(Image: "아이스아메리카노", title: "아이스 아메리카노")
-            let drink2 = menu(Image: "자몽허니블랙티", title: "자몽 허니 블랙티")
-            let drink3 = menu(Image: "자바칩프라푸치노", title: "자바칩 프라푸치노")
+            let drink1 = menu(Image: "아이스아메리카노", title: "아이스 아메리카노", price: 4700)
+            let drink2 = menu(Image: "자몽허니블랙티", title: "자몽 허니 블랙티", price: 6500)
+            let drink3 = menu(Image: "자바칩프라푸치노", title: "자바칩 프라푸치노", price: 5900)
             [drink1, drink2, drink3].forEach {
                 stackView.addArrangedSubview($0)
             }
             
             // Food
         case .food:
-            let food1 = menu(Image: "멜팅치즈베이컨토스트", title: "멜팅 치즈 \n베이컨 토스트")
-            let food2 = menu(Image: "바게트소금빵", title: "바게트 소금빵")
-            let food3 = menu(Image: "진한가나슈9레이어케이크", title: "진한 가나슈 9\n레이어 케이크")
+            let food1 = menu(Image: "멜팅치즈베이컨토스트", title: "멜팅 치즈 \n베이컨 토스트", price: 5700)
+            let food2 = menu(Image: "바게트소금빵", title: "바게트 소금빵", price: 6900)
+            let food3 = menu(Image: "진한가나슈9레이어케이크", title: "진한 가나슈 9\n레이어 케이크", price: 3300)
             [food1, food2, food3].forEach {
                 stackView.addArrangedSubview($0)
             }
             
             // Product
         case .product:
-            let product1 = menu(Image: "별바당블렌드", title: "별바당 블렌드 250g")
-            let product2 = menu(Image: "시그니처사이렌머그", title: "시그니처 사이렌\n머그 237ml")
-            let product3 = menu(Image: "SS커넥티드콩코드텀블러", title: "SS 커넥티드\n콩코드 텀블러 591ml")
+            let product1 = menu(Image: "별바당블렌드", title: "별바당 블렌드 250g", price: 20000)
+            let product2 = menu(Image: "시그니처사이렌머그", title: "시그니처 사이렌\n머그 237ml", price: 18000)
+            let product3 = menu(Image: "SS커넥티드콩코드텀블러", title: "SS 커넥티드\n콩코드 텀블러 591ml", price: 42000)
             [product1, product2, product3].forEach {
                 stackView.addArrangedSubview($0)
             }
