@@ -53,9 +53,12 @@ extension FeatOrderViewControll{
     func updateTotalCountAndReload() {
         let totalQuantity = orders.values.reduce(0) { $0 + $1.quantity }
         let totalPrice = orders.values.reduce(0) { $0 + ($1.price * $1.quantity) }
-        
-        totalMenuCount.text = "총 \(totalQuantity)개"
-        totalMenuPrice.text = "\(totalPrice)원"
+        let numFormatter = NumberFormatter()
+        numFormatter.numberStyle = .decimal
+        guard let formatTotalPrice = numFormatter.string(for: totalPrice) else {return}
+        guard let formatTotalQuantity = numFormatter.string(for: totalQuantity) else {return}
+        totalMenuCount.text = "총 \(formatTotalQuantity)개"
+        totalMenuPrice.text = "\(formatTotalPrice)원"
         
         dataArray = orders.keys.sorted()
         tableView.reloadData()
