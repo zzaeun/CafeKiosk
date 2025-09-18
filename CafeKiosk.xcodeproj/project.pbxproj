@@ -25,6 +25,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		3A0DD2362E7BA16B00480D64 /* FeatMenu */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = FeatMenu;
+			sourceTree = "<group>";
+		};
 		3A1BEFD02E79085500D29D4D /* CafeKiosk */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -55,6 +60,7 @@
 		3A1BEFC52E79085500D29D4D = {
 			isa = PBXGroup;
 			children = (
+				3A0DD2362E7BA16B00480D64 /* FeatMenu */,
 				508417E22E79322900878A36 /* FeatOrder */,
 				3A1BEFD02E79085500D29D4D /* CafeKiosk */,
 				3A1BEFCF2E79085500D29D4D /* Products */,
@@ -85,6 +91,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				3A0DD2362E7BA16B00480D64 /* FeatMenu */,
 				3A1BEFD02E79085500D29D4D /* CafeKiosk */,
 				508417E22E79322900878A36 /* FeatOrder */,
 			);
