@@ -15,7 +15,7 @@ class LaunchScreenViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .green
+        view.backgroundColor = UIColor(hex: 0x00704A).cgColor
         configureUI()
         setConstraints()
     }
