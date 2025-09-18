@@ -4,7 +4,8 @@ import SnapKit
 
 // 화면 로직
 class FeatMenuViewController: UIViewController {
-
+    let featOrderViewControll = FeatOrderViewControll()
+    
     let appTitleLabel = UILabel()
     let category: UISegmentedControl = {
         let segmentedControl = UISegmentedControl(items: ["Drink", "Food", "Product"])
@@ -43,7 +44,7 @@ class FeatMenuViewController: UIViewController {
             (index, menuView) in
             menuView.isUserInteractionEnabled = true
             menuView.tag = index
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(foodMenuTapped(_ :)))
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(featOrderViewControll.foodMenuTapped(_:)))
             menuView.addGestureRecognizer(tapGesture)
         }
         
@@ -125,36 +126,63 @@ class FeatMenuViewController: UIViewController {
         }
     }
     
-    //drink메뉴 탭 이벤트
+    /// drink메뉴 탭 이벤트
+    /// 이벤트 진행한 버튼의 tag값을 통해 식별함
+    /// orders 딕셔너리에 menuName을 key로하는 데이터 확인
+    /// 있으면 기존 값의 quantity 값을 1증가 후 갱신
+    /// 없으면 menuPriced와 quantity가 1인 튜플을 생성하여 딕셔너리에 추가
     @objc func drinkMenuTapped(_ sender: UITapGestureRecognizer){
         guard let tappedView = sender.view else {return}
         
         let tappedIndex = tappedView.tag
-        
         let selectredItem = FeatMenuData.drink[tappedIndex]
+        let menuName = selectredItem.title
+        let menuPrice = selectredItem.price
+        
+        if var existingOrderTuple = featOrderViewControll.orders[menuName] {
+            existingOrderTuple.quantity += 1
+            featOrderViewControll.orders[menuName] = existingOrderTuple
+        } else {
+            featOrderViewControll.orders[menuName] = (price: menuPrice, quantity: 1)
+        }
+        
         
         print("\(selectredItem.title) \(selectredItem.price)")
+        print(featOrderViewControll.dataArray)
     }
     
     //food메뉴 탭 이벤트
-    @objc func foodMenuTapped(_ sender: UITapGestureRecognizer){
-        guard let tappedView = sender.view else {return}
-        
-        let tappedIndex = tappedView.tag
-        
-        let selectredItem = FeatMenuData.food[tappedIndex]
-        
-        print("\(selectredItem.title) \(selectredItem.price)")
-    }
+//    @objc func foodMenuTapped(_ sender: UITapGestureRecognizer){
+//        guard let tappedView = sender.view else {return}
+//        
+//        let tappedIndex = tappedView.tag
+//        let selectredItem = FeatMenuData.food[tappedIndex]
+//        let menuName = selectredItem.title
+//        let menuPrice = selectredItem.price
+//        
+//        if var existingOrderTuple = featOrderViewControll.orders[menuName] {
+//            existingOrderTuple.quantity += 1
+//            featOrderViewControll.orders[menuName] = existingOrderTuple
+//        } else {
+//            featOrderViewControll.orders[menuName] = (price: menuPrice, quantity: 1)
+//        }
+//        print("\(selectredItem.title) \(selectredItem.price)")
+//    }
     
     //product메뉴 탭 이벤트
     @objc func productTapped(_ sender: UITapGestureRecognizer){
         guard let tappedView = sender.view else {return}
         
         let tappedIndex = tappedView.tag
-        
         let selectredItem = FeatMenuData.product[tappedIndex]
-        
+        let menuName = selectredItem.title
+        let menuPrice = selectredItem.price
+        if var existingOrderTuple = featOrderViewControll.orders[menuName] {
+            existingOrderTuple.quantity += 1
+            featOrderViewControll.orders[menuName] = existingOrderTuple
+        } else {
+            featOrderViewControll.orders[menuName] = (price: menuPrice, quantity: 1)
+        }
         print("\(selectredItem.title) \(selectredItem.price)")
     }
 }

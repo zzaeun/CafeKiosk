@@ -70,6 +70,7 @@ class FeatOrderViewControll: UIViewController{
         tableView.delegate = self
         tableView.dataSource = self
         tableView.layer.borderColor = UIColor(hex: 0x00704A).cgColor
+        
         tableView.layer.borderWidth = 0.6
         tableView.layer.cornerRadius = 20
         tableView.backgroundColor = .clear

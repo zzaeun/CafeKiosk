@@ -45,6 +45,11 @@
 			path = CafeKiosk;
 			sourceTree = "<group>";
 		};
+		503D2B552E7C115200F027D1 /* LaunchScreen */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = LaunchScreen;
+			sourceTree = "<group>";
+		};
 		508417E22E79322900878A36 /* FeatOrder */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = FeatOrder;
@@ -67,6 +72,7 @@
 		3A1BEFC52E79085500D29D4D = {
 			isa = PBXGroup;
 			children = (
+				503D2B552E7C115200F027D1 /* LaunchScreen */,
 				503DFC8D2E7BE0F30033951F /* FeatMenu */,
 				508417E22E79322900878A36 /* FeatOrder */,
 				3A1BEFD02E79085500D29D4D /* CafeKiosk */,
@@ -112,6 +118,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				3A1BEFD02E79085500D29D4D /* CafeKiosk */,
+				503D2B552E7C115200F027D1 /* LaunchScreen */,
 				508417E22E79322900878A36 /* FeatOrder */,
 			);
 			name = CafeKiosk;

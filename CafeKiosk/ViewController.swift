@@ -4,7 +4,7 @@ import UIKit
 class ViewController: UIViewController {
     let orderContainerView: UIView = {
         let uiView = UIView()
-        uiView.backgroundColor = .clear
+        uiView.backgroundColor = .white
         return uiView
     }()
     
@@ -20,13 +20,14 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
         setupLayout()
         addFeatOrderViewController()
         addFeatMenuViewController()
     }
     func setupLayout() {
         view.addSubview(orderContainerView)
-        view.backgroundColor = .clear
+        view.backgroundColor = .white
         
         orderContainerView.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide).inset(8)

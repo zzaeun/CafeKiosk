@@ -14,18 +14,10 @@ extension FeatOrderViewControll: UITableViewDelegate,UITableViewDataSource,FeatO
         }
         
         
-        let menuName = dataArray[indexPath.row]
-       
-       
-        if let orderTuple = orders[menuName] {
-
-            cell.ConfigureTableView(nameData: menuName, priceData: orderTuple.price, amountCount: orderTuple.quantity)
-        }
         cell.delegate = self
         cell.backgroundColor = .clear
+        print("여기는 어떤가요? \(cell)")
         return cell
     }
-    
-    
-    
+
 }

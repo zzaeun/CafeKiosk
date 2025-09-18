@@ -9,6 +9,7 @@ extension FeatOrderViewControll{
     /// orders 딕셔너리에 menuName을 key로하는 데이터 확인
     /// 있으면 기존 값의 quantity 값을 1증가 후 갱신
     /// 없으면 menuPriced와 quantity가 1인 튜플을 생성하여 딕셔너리에 추가
+    ///
     @objc func menuTapped(sender: UIButton){
         let menuID = sender.tag
         let selectMenu = menuItems[menuID]
@@ -20,8 +21,26 @@ extension FeatOrderViewControll{
         } else {
             orders[menuName] = (price: menuPrice, quantity: 1)
         }
+        print("\(dataArray)")
+    }
+    @objc func foodMenuTapped(_ sender: UITapGestureRecognizer){
+        guard let tappedView = sender.view else {return}
+        
+        let tappedIndex = tappedView.tag
+        let selectredItem = FeatMenuData.food[tappedIndex]
+        let menuName = selectredItem.title
+        let menuPrice = selectredItem.price
+        
+        if var existingOrderTuple = orders[menuName] {
+            existingOrderTuple.quantity += 1
+            orders[menuName] = existingOrderTuple
+        } else {
+            orders[menuName] = (price: menuPrice, quantity: 1)
+        }
+        print("\(dataArray)")
         
     }
+    
     /// FeatOrderCell의 protocol의 함수.
     /// +, - 버튼을 눌러 수량이 변경되었을 때 호출
     ///tableView.indexPath(for: cell) 을 통해 탭한 셀의 indexPath을 확인
