@@ -80,10 +80,14 @@ class FeatOrderCell: UITableViewCell{
     }
     
     func ConfigureTableView(nameData name: String, priceData price: Int, amountCount count: Int){
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        let totalPrice = price * count
+        
         nameLabel.text = name
         self.unitPrice = price
         amountLabel.text = "\(count)"
-        priceLabel.text = "\(price * count)"
+        priceLabel.text = numberFormatter.string(for: totalPrice)
         
     }
     
@@ -105,8 +109,4 @@ class FeatOrderCell: UITableViewCell{
         priceLabel.text = "\(totalprice)"
         delegate?.quantityDidChange(for: self, newQuantity: newAmount)
     }
-}
-
-#Preview{
-    FeatOrderViewControll()
 }

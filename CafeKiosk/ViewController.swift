@@ -1,75 +1,107 @@
 
 import UIKit
+import SnapKit
+import Foundation
 
 class ViewController: UIViewController {
-    let orderContainerView: UIView = {
-        let uiView = UIView()
-        uiView.backgroundColor = .white
-        return uiView
-    }()
     
-    let menuView: UIView = {
-        let uiView = UIView()
-        uiView.backgroundColor = .clear
-        return uiView
-    }()
+    let orderView = FeatOrderView()
+    let menuView = FeatMenuView()
+
+    var orders: [String: (price: Int, quantity: Int)] = [:] {
+        didSet{
+            updateTableUI()
+        }
+    }
     
-    let featOrderVC = FeatOrderViewControll()
-    let featMenuVC = FeatMenuViewController()
+    var dataArray: [String] = []
+    
+    lazy var drinkHstack = menuView.menuHstack(items: FeatMenuData.drink)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        
-        setupLayout()
-        addFeatOrderViewController()
-        addFeatMenuViewController()
-    }
-    func setupLayout() {
-        view.addSubview(orderContainerView)
-        view.backgroundColor = .white
-        
-        orderContainerView.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(8)
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.height.equalTo(400)
-        }
-        
-        view.addSubview(menuView)
-        view.backgroundColor = .clear
-        menuView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(400)
-        }
-        
+        configuerView()
+        setupUI()
 
+        setupDelegates()
+        setupTargets()
+        setupInitialData()
+        
+        print("DataArray: \(dataArray)")
+        print("Orders: \(orders)")
+        
+    }
+    func configuerView() {
+        view.backgroundColor = .white
+        view.addSubview(orderView)
+        view.addSubview(drinkHstack)
+        
+        
+        
     }
     
-    func addFeatMenuViewController() {
-        addChild(featMenuVC)
-        menuView.addSubview(featMenuVC.view)
-        
-        featMenuVC.view.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+    func setupUI(){
+        drinkHstack.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(200)
         }
-        featMenuVC.didMove(toParent: self)
+        
+        orderView.snp.makeConstraints { make in
+            make.top.equalTo(drinkHstack.snp.bottom).offset(20)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
     }
     
-    private func addFeatOrderViewController() {
-        // 부모에게 자식 뷰 컨트롤러를 추가
-        addChild(featOrderVC)
-        // 자식 뷰 컨트롤러의 View를 컨테이너 뷰 추가
-        orderContainerView.addSubview(featOrderVC.view)
-        
-        featOrderVC.view.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-            
-            
+    
+    func setupDelegates(){
+        orderView.tableView.delegate = self
+        orderView.tableView.dataSource = self
+    }
+    
+    func setupTargets(){
+        /// drink 뷰에 메뉴 0번부터 Tag 생성 및 Gesture 추가
+        drinkHstack.arrangedSubviews.enumerated().forEach{
+            (index, menuView) in
+            menuView.isUserInteractionEnabled = true
+            menuView.tag = index
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(drinkMenuTapped(_ :)))
+            menuView.addGestureRecognizer(tapGesture)
         }
-        featOrderVC.didMove(toParent: self)
+    }
+    /// drink메뉴 탭 이벤트
+    /// 이벤트 진행한 버튼의 tag값을 통해 식별함
+    /// orders 딕셔너리에 menuName을 key로하는 데이터 확인
+    /// 있으면 기존 값의 quantity 값을 1증가 후 갱신
+    /// 없으면 menuPriced와 quantity가 1인 튜플을 생성하여 딕셔너리에 추가
+    @objc func drinkMenuTapped(_ sender: UITapGestureRecognizer){
+        guard let tappedView = sender.view else {return}
+        
+        let tappedIndex = tappedView.tag
+        let selectredItem = FeatMenuData.drink[tappedIndex]
+        let menuName = selectredItem.title
+        let menuPrice = selectredItem.price
+        
+        if var existingOrderTuple = orders[menuName] {
+            existingOrderTuple.quantity += 1
+            orders[menuName] = existingOrderTuple
+        } else {
+            orders[menuName] = (price: menuPrice, quantity: 1)
+        }
+        print("orders[menuName]: \(orders[menuName])")
+        print("orders: \(orders)")
+        print("DataArray: \(dataArray)")
+    }
+    
+    func setupInitialData() {
         
     }
+    
+    
 }
+
 #Preview{
     ViewController()
 }
+
