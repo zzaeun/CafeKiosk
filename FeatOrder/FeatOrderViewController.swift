@@ -45,7 +45,6 @@ class FeatOrderViewControll: UIViewController{
     
     let totalMenuCount: UILabel = {
         let count = UILabel()
-        count.layer.borderWidth = 1
         count.text = "총 0개"
         return count
     }()
@@ -85,7 +84,7 @@ class FeatOrderViewControll: UIViewController{
         tableView.delegate = self
         tableView.dataSource = self
         tableView.layer.borderColor = UIColor(hex: 0x00704A).cgColor
-        tableView.layer.borderWidth = 1
+        tableView.layer.borderWidth = 0.6
         tableView.layer.cornerRadius = 20
         tableView.backgroundColor = .clear
         
@@ -94,7 +93,7 @@ class FeatOrderViewControll: UIViewController{
         
         tableView.snp.makeConstraints{make in
             make.top.equalTo(menuButton.snp.bottom).offset(60)
-            make.height.equalTo(200)
+            make.height.equalTo(160)
             make.width.equalTo(300)
             make.centerX.equalToSuperview()
         }
@@ -102,20 +101,22 @@ class FeatOrderViewControll: UIViewController{
         menuButton1.addTarget(self, action: #selector(menuTapped), for: .touchUpInside)
         
         totalMenuCount.snp.makeConstraints{make in
-            make.bottom.equalTo(tableView.snp.top)
-            make.trailing.equalTo(tableView.snp.trailing)
+            make.bottom.equalTo(tableView.snp.top).offset(-4)
+            totalMenuCount.font = UIFont.boldSystemFont(ofSize: 16)
+            make.trailing.equalTo(tableView.snp.trailing).inset(4)
+            
         }
         totalMenuPrice.snp.makeConstraints{make in
-            make.top.equalTo(tableView.snp.bottom)
-            totalMenuPrice.text = "1234원"
-            totalMenuPrice.layer.borderWidth = 1
-            make.trailing.equalTo(tableView.snp.trailing)
+            make.top.equalTo(tableView.snp.bottom).offset(24)
+            totalMenuPrice.text = "0원"
+            totalMenuPrice.font = UIFont.boldSystemFont(ofSize: 16)
+            make.trailing.equalTo(tableView.snp.trailing).inset(16)
         }
         orderAmount.snp.makeConstraints{make in
-            make.top.equalTo(tableView.snp.bottom)
+            make.top.equalTo(tableView.snp.bottom).offset(24)
             orderAmount.text = "주문금액"
-            orderAmount.layer.borderWidth = 1
-            make.leading.equalTo(tableView.snp.leading)
+            orderAmount.font = UIFont.boldSystemFont(ofSize: 16)
+            make.leading.equalTo(tableView.snp.leading).inset(4)
         }
     }
     
