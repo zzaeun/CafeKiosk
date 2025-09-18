@@ -61,3 +61,6 @@ extension FeatOrderViewControll{
         tableView.reloadData()
     }
 }
+#Preview{
+    ViewController()
+}
