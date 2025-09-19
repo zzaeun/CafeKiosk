@@ -7,7 +7,7 @@ class FeatOrderView: UIView{
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.layer.borderColor = UIColor(hex: 0x00704A).cgColor
-        tableView.layer.borderWidth = 0.6
+        tableView.layer.borderWidth = 1
         tableView.layer.cornerRadius = 20
         tableView.backgroundColor = .clear
         tableView.register(FeatOrderCell.self, forCellReuseIdentifier: FeatOrderCell.identifier)

@@ -20,15 +20,11 @@ class FeatOrderCell: UITableViewCell{
     let plusButton: UIButton = {
         let button = UIButton()
         button.setTitle("+", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        
         return button
     }()
     let minusButton: UIButton = {
         let button = UIButton()
         button.setTitle("-", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        
         return button
     }()
     var amountLabel: UILabel = {

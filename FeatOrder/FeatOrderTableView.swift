@@ -26,6 +26,23 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource,FeatOrderCel
         // 셀의 UI 구성
         cell.ConfigureTableView(nameData: menuName, priceData: orderinfo.price, amountCount: orderinfo.quantity)
         
+        if isDarkModeEnabled {
+            // 다크 모드일 때의 셀 디자인
+            cell.nameLabel.textColor = .white
+            cell.plusButton.setTitleColor(.white, for: .normal)
+            cell.minusButton.setTitleColor(.white, for: .normal)
+            cell.priceLabel.textColor = .white
+            cell.amountLabel.textColor = .white
+            //cell.backgroundColor = .darkGray
+        } else {
+            // 라이트 모드일 때의 셀 디자인
+            cell.nameLabel.textColor = .black
+            cell.plusButton.setTitleColor(.black, for: .normal)
+            cell.minusButton.setTitleColor(.black, for: .normal)
+            cell.priceLabel.textColor = .black
+            cell.amountLabel.textColor = .black
+            //cell.backgroundColor = .white
+        }
         return cell
     }
 

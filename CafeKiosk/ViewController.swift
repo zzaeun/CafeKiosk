@@ -4,11 +4,45 @@ import SnapKit
 import Foundation
 
 class ViewController: UIViewController {
-    
+    @DarkModeSetting var isDarkModeEnabled: Bool
+    func updateUIForDarkMode() {
+        if isDarkModeEnabled {
+            view.backgroundColor = .black
+            appTitleLabel.textColor = .white
+            isDarkModeButton.setImage(UIImage(named: "lightMode"),for: .normal)
+            
+            //TableViewCell 다크 모드
+            orderView.tableView.reloadData()
+            //주문 내역 다크모드
+            orderView.totalMenuCount.textColor = .white
+            orderView.totalMenuPrice.textColor = .white
+            orderView.orderAmount.textColor = .white
+        }
+        
+        else {
+            view.backgroundColor = .white
+            appTitleLabel.textColor = .black
+            isDarkModeButton.setImage(UIImage(named: "darkmode"),for: .normal)
+            
+            //TableViewCell 라이트 모드
+            orderView.tableView.reloadData()
+            //주문 내역 라이트모드
+            orderView.totalMenuCount.textColor = .black
+            orderView.totalMenuPrice.textColor = .black
+            orderView.orderAmount.textColor = .black
+
+        }
+    }
+
     // 주문 내역을 표시하는 뷰
     let orderView = FeatOrderView()
     // 메뉴를 표시하는 뷰
     let menuView = FeatMenuView()
+    let isDarkModeButton: UIButton = {
+        let button = UIButton()
+        
+        return button
+    }()
     // 앱 제목
     let appTitleLabel = UILabel()
     // 메뉴 카테고리
@@ -36,6 +70,8 @@ class ViewController: UIViewController {
     //로딩 완료 후 호출
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateUIForDarkMode()
+        
         configuerView()
         setupUI()
 
@@ -53,10 +89,12 @@ class ViewController: UIViewController {
     
     // 뷰 설정
     func configuerView() {
-        view.backgroundColor = .white
         [appTitleLabel, category, drinkHstack, foodHstack, productHstack, orderView].forEach {
             view.addSubview($0)
         }
+        
+        view.addSubview(isDarkModeButton)
+        
     }
     
     //UI설정
@@ -64,12 +102,10 @@ class ViewController: UIViewController {
         // appTitleLabel 디자인
         appTitleLabel.text = "Appsoulte"
         appTitleLabel.font = .systemFont(ofSize: 25, weight: .semibold)
-        appTitleLabel.textColor = .black
         
         // segementedContorl 디자인
         category.selectedSegmentTintColor = UIColor(red: 0/255, green: 112/255, blue: 74/255, alpha: 1.0)
         category.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
-
     }
     
     // 테이블 뷰 delegate, dataSource 설정
@@ -78,7 +114,7 @@ class ViewController: UIViewController {
         orderView.tableView.dataSource = self
     }
     
-    // 메뉴 아이템 탭 제스처 타겟 설정
+    // 타겟 설정
     func setupTargets() {
         /// drink 뷰에 메뉴 0번부터 Tag 생성 및 Gesture 추가
         for index in 0..<drinkHstack.arrangedSubviews.count {
@@ -107,6 +143,9 @@ class ViewController: UIViewController {
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(productMenuTapped(_:)))
             menuView.addGestureRecognizer(tapGesture)
         }
+        
+        // 다크모드 버튼 타겟 설정
+        isDarkModeButton.addTarget(self, action: #selector(darkModeTapped), for: .touchUpInside)
     }
     
 
@@ -141,8 +180,22 @@ class ViewController: UIViewController {
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
+        
+        // 다크모드 버튼 위치
+        isDarkModeButton.snp.makeConstraints{make in
+            make.top.equalToSuperview().offset(80)
+            make.trailing.equalToSuperview().inset(18)
+            make.width.height.equalTo(40)
+        }
     }
     
+    // 다크모드 버튼 선택
+    @objc func darkModeTapped(_ sender: UIButton){
+        print("버튼탭")
+        isDarkModeEnabled.toggle()
+        
+        updateUIForDarkMode()
+    }
     // 카테고리 메뉴 선택
     @objc
     func tappedSegmentedControl(_ sender: UISegmentedControl) {
