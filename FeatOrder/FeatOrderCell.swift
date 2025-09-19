@@ -16,7 +16,12 @@ class FeatOrderCell: UITableViewCell{
     static let identifier = "FeatOrderCell"
     
     var unitPrice = 0
-    let nameLabel = UILabel()
+    let nameLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.numberOfLines = 0
+        return label
+    }()
     let plusButton: UIButton = {
         let button = UIButton()
         button.setTitle("+", for: .normal)

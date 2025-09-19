@@ -4,6 +4,8 @@ import SnapKit
 import Foundation
 
 class ViewController: UIViewController {
+
+    //다크모드, 라이트모드 체크 및 호출 메서드
     @DarkModeSetting var isDarkModeEnabled: Bool
     func updateUIForDarkMode() {
         if isDarkModeEnabled {
