@@ -41,6 +41,10 @@ class FeatMenuView: UIView {
         titleLabel.numberOfLines =  0
         titleLabel.textAlignment = .center
         
+        
+ 
+        
+        
         // VStack으로 정렬
         let Vstack = UIStackView(arrangedSubviews: [circleView, titleLabel])
         Vstack.axis = .vertical

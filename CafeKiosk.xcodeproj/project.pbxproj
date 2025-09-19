@@ -60,6 +60,11 @@
 			path = FeatOrder;
 			sourceTree = "<group>";
 		};
+		50E75F632E7D20AD00741B2B /* MainViewController */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = MainViewController;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +82,7 @@
 		3A1BEFC52E79085500D29D4D = {
 			isa = PBXGroup;
 			children = (
+				50E75F632E7D20AD00741B2B /* MainViewController */,
 				505C83D92E7CF3E800DC9EEF /* DarkMode */,
 				503D2B552E7C115200F027D1 /* LaunchScreen */,
 				503DFC8D2E7BE0F30033951F /* FeatMenu */,
@@ -127,6 +133,7 @@
 				503D2B552E7C115200F027D1 /* LaunchScreen */,
 				505C83D92E7CF3E800DC9EEF /* DarkMode */,
 				508417E22E79322900878A36 /* FeatOrder */,
+				50E75F632E7D20AD00741B2B /* MainViewController */,
 			);
 			name = CafeKiosk;
 			packageProductDependencies = (

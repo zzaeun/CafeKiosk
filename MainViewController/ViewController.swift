@@ -4,43 +4,8 @@ import SnapKit
 import Foundation
 
 class ViewController: UIViewController {
-
-    //다크모드, 라이트모드 체크 및 호출 메서드
     @DarkModeSetting var isDarkModeEnabled: Bool
-    func updateUIForDarkMode() {
-        if isDarkModeEnabled {
-            // 다크모드 백그라운드 설정
-            view.backgroundColor = .black
-            //메뉴 화면 다크모드
-            appTitleLabel.textColor = .white
-            isDarkModeButton.setImage(UIImage(named: "lightMode"),for: .normal)
-            
-            //TableViewCell 다크 모드
-            orderView.tableView.reloadData()
-            //주문 내역 다크모드
-            orderView.totalMenuCount.textColor = .white
-            orderView.totalMenuPrice.textColor = .white
-            orderView.orderAmount.textColor = .white
-        }
-        
-        else {
-            // 라이트모드 백그라운드 설정
-            view.backgroundColor = .white
-            
-            //메뉴 화면 라이트모드
-            appTitleLabel.textColor = .black
-            isDarkModeButton.setImage(UIImage(named: "darkmode"),for: .normal)
-            
-            //TableViewCell 라이트 모드
-            orderView.tableView.reloadData()
-            //주문 내역 라이트모드
-            orderView.totalMenuCount.textColor = .black
-            orderView.totalMenuPrice.textColor = .black
-            orderView.orderAmount.textColor = .black
-
-        }
-    }
-
+    
     // 주문 내역을 표시하는 뷰
     let orderView = FeatOrderView()
     // 메뉴를 표시하는 뷰
@@ -57,6 +22,7 @@ class ViewController: UIViewController {
         let segmentedControl = UISegmentedControl(items: ["Drink", "Food", "Product"])
         segmentedControl.selectedSegmentIndex = 0
         return segmentedControl
+    
     }()
     
     // 메뉴title의 key값을 통해 가격과 수량을 저장하는 딕셔너리
@@ -74,6 +40,9 @@ class ViewController: UIViewController {
     lazy var foodHstack = menuView.menuHstack(items: FeatMenuData.food)
     lazy var productHstack = menuView.menuHstack(items: FeatMenuData.product)
     
+    func test(){
+        print(menuView.menuView(item:))
+    }
     //로딩 완료 후 호출
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,7 +81,9 @@ class ViewController: UIViewController {
         
         // segementedContorl 디자인
         category.selectedSegmentTintColor = UIColor(red: 0/255, green: 112/255, blue: 74/255, alpha: 1.0)
+        
         category.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
+
     }
     
     // 테이블 뷰 delegate, dataSource 설정
@@ -196,13 +167,7 @@ class ViewController: UIViewController {
         }
     }
     
-    // 다크모드 버튼 선택
-    @objc func darkModeTapped(_ sender: UIButton){
-        print("버튼탭")
-        isDarkModeEnabled.toggle()
-        
-        updateUIForDarkMode()
-    }
+
     // 카테고리 메뉴 선택
     @objc
     func tappedSegmentedControl(_ sender: UISegmentedControl) {

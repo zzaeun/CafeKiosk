@@ -6,7 +6,7 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource,FeatOrderCel
     
     // 테이블 뷰 표시할 갯수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("numberOfRowsInSection 호출됨 row 개수: \(dataArray.count)")
+        //print("numberOfRowsInSection: \(dataArray.count)")
         return dataArray.count
     }
     
@@ -33,7 +33,7 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource,FeatOrderCel
             cell.minusButton.setTitleColor(.white, for: .normal)
             cell.priceLabel.textColor = .white
             cell.amountLabel.textColor = .white
-            //cell.backgroundColor = .darkGray
+            cell.backgroundColor = UIColor(hex: 0x00704A)
         } else {
             // 라이트 모드일 때의 셀 디자인
             cell.nameLabel.textColor = .black
