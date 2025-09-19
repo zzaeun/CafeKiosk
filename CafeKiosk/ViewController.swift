@@ -64,13 +64,14 @@ class ViewController: UIViewController {
     }
     
     // 메뉴 아이템 탭 제스처 타겟 설정
-    func setupTargets(){
+    func setupTargets() {
         /// drink 뷰에 메뉴 0번부터 Tag 생성 및 Gesture 추가
-        drinkHstack.arrangedSubviews.enumerated().forEach{
-            (index, menuView) in
+        for index in 0..<drinkHstack.arrangedSubviews.count {
+            let menuView = drinkHstack.arrangedSubviews[index]
+
             menuView.isUserInteractionEnabled = true
             menuView.tag = index
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(drinkMenuTapped(_ :)))
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(drinkMenuTapped(_:)))
             menuView.addGestureRecognizer(tapGesture)
         }
     }
