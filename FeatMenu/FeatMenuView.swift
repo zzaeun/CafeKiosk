@@ -10,6 +10,7 @@ import SnapKit
 
 // 메뉴 나타내는 뷰
 class FeatMenuView: UIView {
+    var titleLabels: [UILabel] = []
     
     // 메뉴 (사진, 이름, 가격)
     func menuView(item: FeatMenuItem) -> UIStackView {
@@ -40,7 +41,7 @@ class FeatMenuView: UIView {
         titleLabel.font = .systemFont(ofSize: 12)
         titleLabel.numberOfLines =  0
         titleLabel.textAlignment = .center
-        
+        titleLabels.append(titleLabel)
         
  
         

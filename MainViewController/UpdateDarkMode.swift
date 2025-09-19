@@ -12,6 +12,7 @@ extension ViewController{
             appTitleLabel.textColor = .white
             isDarkModeButton.setImage(UIImage(named: "lightMode"),for: .normal)
             category.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
+            category.setTitleTextAttributes([.foregroundColor: UIColor.black], for: .selected)
             category.backgroundColor = .darkGray
             
             //TableViewCell 다크 모드
@@ -20,6 +21,11 @@ extension ViewController{
             orderView.totalMenuCount.textColor = .white
             orderView.totalMenuPrice.textColor = .white
             orderView.orderAmount.textColor = .white
+        
+            // 메뉴 이름 다크모드
+            for label in menuView.titleLabels {
+                label.textColor = .white
+            }
         }
         
         else {
@@ -30,6 +36,7 @@ extension ViewController{
             appTitleLabel.textColor = .black
             isDarkModeButton.setImage(UIImage(named: "darkmode"),for: .normal)
             category.setTitleTextAttributes([.foregroundColor: UIColor.black], for: .normal)
+            category.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
             category.backgroundColor = .white
             
             //TableViewCell 라이트 모드
@@ -38,7 +45,11 @@ extension ViewController{
             orderView.totalMenuCount.textColor = .black
             orderView.totalMenuPrice.textColor = .black
             orderView.orderAmount.textColor = .black
-
+            
+            // 메뉴 이름 라이트 모드
+            for label in menuView.titleLabels {
+                label.textColor = .black
+            }
         }
     }
     
