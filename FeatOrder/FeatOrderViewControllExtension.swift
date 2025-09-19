@@ -45,4 +45,63 @@ extension ViewController{
         // reloadData로 테이블 뷰 데이터 새로고침
         orderView.tableView.reloadData()
     }
+    
+    // 음료 메뉴 탭 메서드
+    @objc func drinkMenuTapped(_ sender: UITapGestureRecognizer){
+        // 탭된 뷰 가져옴
+        guard let tappedView = sender.view else {return}
+        
+        // 탭된 뷰의 태그를 통해 아이템 확인
+        let tappedIndex = tappedView.tag
+        let selectredItem = FeatMenuData.drink[tappedIndex]
+        let menuName = selectredItem.title
+        let menuPrice = selectredItem.price
+        
+        //order 딕셔너리에 이미 주문된 메뉴인지 확인
+        if var existingOrderTuple = orders[menuName] {
+            existingOrderTuple.quantity += 1
+            orders[menuName] = existingOrderTuple
+        } else {
+            orders[menuName] = (price: menuPrice, quantity: 1)
+        }
+    }
+    
+    // 음식 메뉴 탭 메서드
+    @objc func foodMenuTapped(_ sender: UITapGestureRecognizer){
+        // 탭된 뷰 가져옴
+        guard let tappedView = sender.view else {return}
+        
+        // 탭된 뷰의 태그를 통해 아이템 확인
+        let tappedIndex = tappedView.tag
+        let selectredItem = FeatMenuData.food[tappedIndex]
+        let menuName = selectredItem.title
+        let menuPrice = selectredItem.price
+        
+        //order 딕셔너리에 이미 주문된 메뉴인지 확인
+        if var existingOrderTuple = orders[menuName] {
+            existingOrderTuple.quantity += 1
+            orders[menuName] = existingOrderTuple
+        } else {
+            orders[menuName] = (price: menuPrice, quantity: 1)
+        }
+    }
+    // 상품 메뉴 탭 메서드
+    @objc func productMenuTapped(_ sender: UITapGestureRecognizer){
+        // 탭된 뷰 가져옴
+        guard let tappedView = sender.view else {return}
+        
+        // 탭된 뷰의 태그를 통해 아이템 확인
+        let tappedIndex = tappedView.tag
+        let selectredItem = FeatMenuData.product[tappedIndex]
+        let menuName = selectredItem.title
+        let menuPrice = selectredItem.price
+        
+        //order 딕셔너리에 이미 주문된 메뉴인지 확인
+        if var existingOrderTuple = orders[menuName] {
+            existingOrderTuple.quantity += 1
+            orders[menuName] = existingOrderTuple
+        } else {
+            orders[menuName] = (price: menuPrice, quantity: 1)
+        }
+    }
 }

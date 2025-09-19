@@ -6,7 +6,7 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource,FeatOrderCel
     
     // 테이블 뷰 표시할 갯수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("numberOfRowsInSection 호출됨, row 개수: \(dataArray.count)")
+        print("numberOfRowsInSection 호출됨 row 개수: \(dataArray.count)")
         return dataArray.count
     }
     

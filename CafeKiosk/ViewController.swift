@@ -89,27 +89,27 @@ class ViewController: UIViewController {
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(drinkMenuTapped(_:)))
             menuView.addGestureRecognizer(tapGesture)
         }
-    }
-    
-    // 음료 메뉴 탭 메서드
-    @objc func drinkMenuTapped(_ sender: UITapGestureRecognizer){
-        // 탭된 뷰 가져옴
-        guard let tappedView = sender.view else {return}
-        
-        // 탭된 뷰의 태그를 통해 아이템 확인
-        let tappedIndex = tappedView.tag
-        let selectredItem = FeatMenuData.drink[tappedIndex]
-        let menuName = selectredItem.title
-        let menuPrice = selectredItem.price
-        
-        //order 딕셔너리에 이미 주문된 메뉴인지 확인
-        if var existingOrderTuple = orders[menuName] {
-            existingOrderTuple.quantity += 1
-            orders[menuName] = existingOrderTuple
-        } else {
-            orders[menuName] = (price: menuPrice, quantity: 1)
+        /// food 뷰에 메뉴 0번부터 Tag 생성 및 Gesture 추가
+        for index in 0..<foodHstack.arrangedSubviews.count {
+            let menuView = foodHstack.arrangedSubviews[index]
+
+            menuView.isUserInteractionEnabled = true
+            menuView.tag = index
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(foodMenuTapped(_:)))
+            menuView.addGestureRecognizer(tapGesture)
+        }
+        /// product뷰에 메뉴 0번부터 Tag 생성 및 Gesture 추가
+        for index in 0..<productHstack.arrangedSubviews.count {
+            let menuView = productHstack.arrangedSubviews[index]
+
+            menuView.isUserInteractionEnabled = true
+            menuView.tag = index
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(productMenuTapped(_:)))
+            menuView.addGestureRecognizer(tapGesture)
         }
     }
+    
+
     
     // 뷰 위치
     func setConstraints() {
