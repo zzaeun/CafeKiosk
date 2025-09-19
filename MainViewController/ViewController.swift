@@ -212,6 +212,8 @@ class ViewController: UIViewController {
             break
         }
     }
+    
+    // 주문하기 버튼
     @objc func orderTapped() {
         let hasMenu = orders.values.contains { $0.quantity > 0 }
         
@@ -223,7 +225,14 @@ class ViewController: UIViewController {
         }
         let alert = UIAlertController(title: "주문하기", message: "주문을 완료하시겠습니까?", preferredStyle: .alert)
         
+        // 주문하기 "네" 버튼
         let yesAction = UIAlertAction(title: "네", style: .default) { _ in
+            
+            self.orders.removeAll()
+            self.orderView.tableView.reloadData()
+            self.orderView.totalMenuCount.text = "총 0개"
+            self.orderView.totalMenuPrice.text = "0원"
+            
             let thankYouAlert = UIAlertController(title: "주문완료", message: "주문이 완료되었습니다!", preferredStyle: .alert)
             thankYouAlert.addAction(UIAlertAction(title: "확인", style: .default))
             self.present(thankYouAlert, animated: true)
@@ -237,13 +246,20 @@ class ViewController: UIViewController {
         
     
         }
+    
+    // 주문취소 버튼
     @objc func cancelTapped() {
         
         let alert = UIAlertController(title: "주문취소", message: "주문 내역을 모두 삭제하시겠습니까?", preferredStyle: .alert)
-        
-        // "네" 누르면 주문 삭제 됐다구 뜨게 만들었어용
-        
+     
+        // 주문취소 "네" 버튼
         let yesAction = UIAlertAction(title: "네", style: .default) { _ in
+            
+            self.orders.removeAll()
+            self.orderView.tableView.reloadData()
+            self.orderView.totalMenuCount.text = "총 0개"
+            self.orderView.totalMenuPrice.text = "0원"
+            
             let deleteAlert = UIAlertController(title: "삭제 완료", message: "주문 내역이 모두 삭제되었습니다!", preferredStyle: .alert)
             deleteAlert.addAction(UIAlertAction(title: "확인", style: .default))
             self.present(deleteAlert, animated: true)
