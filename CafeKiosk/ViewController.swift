@@ -9,7 +9,9 @@ class ViewController: UIViewController {
     @DarkModeSetting var isDarkModeEnabled: Bool
     func updateUIForDarkMode() {
         if isDarkModeEnabled {
+            // 다크모드 백그라운드 설정
             view.backgroundColor = .black
+            //메뉴 화면 다크모드
             appTitleLabel.textColor = .white
             isDarkModeButton.setImage(UIImage(named: "lightMode"),for: .normal)
             
@@ -22,7 +24,10 @@ class ViewController: UIViewController {
         }
         
         else {
+            // 라이트모드 백그라운드 설정
             view.backgroundColor = .white
+            
+            //메뉴 화면 라이트모드
             appTitleLabel.textColor = .black
             isDarkModeButton.setImage(UIImage(named: "darkmode"),for: .normal)
             
