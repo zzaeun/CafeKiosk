@@ -6,6 +6,8 @@ import Foundation
 class ViewController: UIViewController {
     @DarkModeSetting var isDarkModeEnabled: Bool
     
+    // 주문 버튼 뷰
+    let buttonView = FeatButtonView()
     // 주문 내역을 표시하는 뷰
     let orderView = FeatOrderView()
     // 메뉴를 표시하는 뷰
@@ -13,8 +15,12 @@ class ViewController: UIViewController {
     let isDarkModeButton: UIButton = {
         let button = UIButton()
         
+        
+        
         return button
     }()
+    
+  
     // 앱 제목
     let appTitleLabel = UILabel()
     // 메뉴 카테고리
@@ -22,7 +28,7 @@ class ViewController: UIViewController {
         let segmentedControl = UISegmentedControl(items: ["Drink", "Food", "Product"])
         segmentedControl.selectedSegmentIndex = 0
         return segmentedControl
-    
+        
     }()
     
     // 메뉴title의 key값을 통해 가격과 수량을 저장하는 딕셔너리
@@ -50,7 +56,7 @@ class ViewController: UIViewController {
         
         configuerView()
         setupUI()
-
+        
         setupDelegates()
         setupTargets()
         setConstraints()
@@ -61,6 +67,12 @@ class ViewController: UIViewController {
         productHstack.isHidden = true
         
         category.addTarget(self, action: #selector(tappedSegmentedControl), for: .valueChanged)
+        
+        // 주문하기 버튼 액션 연결
+        buttonView.orderButton.addTarget(self, action: #selector(orderTapped), for: .touchUpInside)
+        buttonView.cancelButton.addTarget(self, action: #selector(cancelTapped), for: .touchUpInside)
+        
+        
     }
     
     // 뷰 설정
@@ -70,6 +82,9 @@ class ViewController: UIViewController {
         }
         
         view.addSubview(isDarkModeButton)
+        
+        view.addSubview(buttonView)
+        
         
     }
     
@@ -83,7 +98,7 @@ class ViewController: UIViewController {
         category.selectedSegmentTintColor = UIColor(red: 0/255, green: 112/255, blue: 74/255, alpha: 1.0)
         
         category.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
-
+        
     }
     
     // 테이블 뷰 delegate, dataSource 설정
@@ -97,7 +112,7 @@ class ViewController: UIViewController {
         /// drink 뷰에 메뉴 0번부터 Tag 생성 및 Gesture 추가
         for index in 0..<drinkHstack.arrangedSubviews.count {
             let menuView = drinkHstack.arrangedSubviews[index]
-
+            
             menuView.isUserInteractionEnabled = true
             menuView.tag = index
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(drinkMenuTapped(_:)))
@@ -106,7 +121,7 @@ class ViewController: UIViewController {
         /// food 뷰에 메뉴 0번부터 Tag 생성 및 Gesture 추가
         for index in 0..<foodHstack.arrangedSubviews.count {
             let menuView = foodHstack.arrangedSubviews[index]
-
+            
             menuView.isUserInteractionEnabled = true
             menuView.tag = index
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(foodMenuTapped(_:)))
@@ -115,7 +130,7 @@ class ViewController: UIViewController {
         /// product뷰에 메뉴 0번부터 Tag 생성 및 Gesture 추가
         for index in 0..<productHstack.arrangedSubviews.count {
             let menuView = productHstack.arrangedSubviews[index]
-
+            
             menuView.isUserInteractionEnabled = true
             menuView.tag = index
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(productMenuTapped(_:)))
@@ -126,7 +141,7 @@ class ViewController: UIViewController {
         isDarkModeButton.addTarget(self, action: #selector(darkModeTapped), for: .touchUpInside)
     }
     
-
+    
     
     // 뷰 위치
     func setConstraints() {
@@ -159,6 +174,15 @@ class ViewController: UIViewController {
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
+        // 버튼 뷰 위치
+        buttonView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(16)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).inset(12)
+            make.height.equalTo(60)
+        }
+        
+        
+        
         // 다크모드 버튼 위치
         isDarkModeButton.snp.makeConstraints{make in
             make.top.equalToSuperview().offset(80)
@@ -167,7 +191,7 @@ class ViewController: UIViewController {
         }
     }
     
-
+    
     // 카테고리 메뉴 선택
     @objc
     func tappedSegmentedControl(_ sender: UISegmentedControl) {
@@ -188,10 +212,64 @@ class ViewController: UIViewController {
             break
         }
     }
+    @objc func orderTapped() {
+        let hasMenu = orders.values.contains { $0.quantity > 0 }
+        
+        if !hasMenu {
+            let failAlert = UIAlertController(title: "주문실패", message: "주문할 메뉴가 없습니다. \n메뉴를 선택해주세요!", preferredStyle: .alert)
+            failAlert.addAction(UIAlertAction(title: "확인", style: .default))
+            present(failAlert, animated: true)
+            return
+        }
+        let alert = UIAlertController(title: "주문하기", message: "주문을 완료하시겠습니까?", preferredStyle: .alert)
+        
+        let yesAction = UIAlertAction(title: "네", style: .default) { _ in
+            let thankYouAlert = UIAlertController(title: "주문완료", message: "주문이 완료되었습니다!", preferredStyle: .alert)
+            thankYouAlert.addAction(UIAlertAction(title: "확인", style: .default))
+            self.present(thankYouAlert, animated: true)
+        }
+        
+        let noAction = UIAlertAction(title: "아니오", style: .destructive)
+        
+        alert.addAction(yesAction)
+        alert.addAction(noAction)
+        present(alert, animated: true)
+        
+    
+        }
+    @objc func cancelTapped() {
+        
+        let alert = UIAlertController(title: "주문취소", message: "주문 내역을 모두 삭제하시겠습니까?", preferredStyle: .alert)
+        
+        // "네" 누르면 주문 삭제 됐다구 뜨게 만들었어용
+        
+        let yesAction = UIAlertAction(title: "네", style: .default) { _ in
+            let deleteAlert = UIAlertController(title: "삭제 완료", message: "주문 내역이 모두 삭제되었습니다!", preferredStyle: .alert)
+            deleteAlert.addAction(UIAlertAction(title: "확인", style: .default))
+            self.present(deleteAlert, animated: true)
+        }
+        
+        // "아니오" 누르면 아무일도 안 일어나용
+        let noAction = UIAlertAction(title: "아니오", style: .destructive)
+        
+        alert.addAction(yesAction)
+        alert.addAction(noAction)
+        self.present(alert, animated: true)
+        
+        
+        
+        
+        
+    }
     
 }
 
-#Preview{
-    ViewController()
-}
+    
+    
+    
+    
+    #Preview{
+        ViewController()
+    }
+    
 

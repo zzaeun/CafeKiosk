@@ -19,18 +19,18 @@ class FeatButtonViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mainView.orderButton.addTarget(self, action: #selector(orderButtonTapped), for: .touchUpInside)
-        mainView.cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+        mainView.orderButton.addTarget(self, action: #selector(orderTapped), for: .touchUpInside)
+        mainView.cancelButton.addTarget(self, action: #selector(cancelTapped), for: .touchUpInside)
         
     }
     
     // 주문하기 버튼 눌렀을 때 실행되는 코드
-    @objc func orderButtonTapped() {
+    @objc func orderTapped() {
         // 메뉴 없을 때 실패 띄우기
         if !hasMenu {
             let failAlert = UIAlertController(title: "주문실패", message: "주문할 메뉴가 없습니다.\n 메뉴를 선택해주세요!", preferredStyle: .alert)
             failAlert.addAction(UIAlertAction(title: "확인", style: .default))
-            present(failAlert, animated: true)
+            self.present(failAlert, animated: true)
             return
             
         }
@@ -60,7 +60,7 @@ class FeatButtonViewController: UIViewController {
     
     
     // 주문취소 버튼 눌렸을 때 실행되는 코드
-    @objc func cancelButtonTapped() {
+    @objc func cancelTapped() {
         
         let alert = UIAlertController(title: "주문취소", message: "주문 내역을 모두 삭제하시겠습니까?", preferredStyle: .alert)
         
@@ -77,7 +77,7 @@ class FeatButtonViewController: UIViewController {
         
         alert.addAction(yesAction)
         alert.addAction(noAction)
-        present(alert, animated: true)
+        self.present(alert, animated: true)
         
         
         

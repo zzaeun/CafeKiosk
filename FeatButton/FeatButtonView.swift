@@ -38,12 +38,12 @@ class FeatButtonView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        backgroundColor = .clear
         
-    
+        
         addSubview(orderButton)
         addSubview(cancelButton)
-
+        
         
         
         orderButton.snp.makeConstraints { make in
@@ -51,24 +51,57 @@ class FeatButtonView: UIView {
             make.bottom.equalTo(safeAreaLayoutGuide
             ).offset(-10)
             make.height.equalTo(40) // 높이는 40으로 설정했습니당
-
+            
         }
-
         
-
+        
+        
         cancelButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalTo(orderButton.snp.leading).offset(-16)
             make.bottom.equalTo(orderButton.snp.bottom)
             make.height.equalTo(orderButton.snp.height)
             make.width.equalTo(orderButton.snp.width)
-
+            
         }
-
+        
     }
     
     // 스토리 보드 막아버림
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
 }
+//    @objc func orderTapped() {
+//        let alert = UIAlertController(title: "주문하기", message: "주문을 완료하시겠습니까?", preferredStyle: .alert)
+//    }
+//    alert.addAction(UIAlertAction(title: "확인", style: .default))
+//    
+//    parentViewController()?.present(alert, animate: true)
+//}
+//
+//@objc func cancelTapped() {
+//    
+//    let alert = UIAlertController(title: "주문취소", message: "주문 내역을 모두 삭제하시겠습니까?", preferredStyle: .alert)
+//    alert.addAction(UIAlertAction(title: "확인", style: .default))
+//    
+//    parentViewController()?.present(alert, animate: true)
+//}
+//
+//
+//
+//    extension UIView {
+//        func parentViewController() -> UIViewController? {
+//            var parentRespeder: UIResponder? = self
+//            while parentRespeder != nil {
+//                parentRespeder = parentRespeder?.next
+//                if let vc = parentRespeder as? UIViewController {
+//                    return vc
+//                }
+//                parentRespeder = responder.next
+//            }
+//            return nil
+//        }
+//    }
+//

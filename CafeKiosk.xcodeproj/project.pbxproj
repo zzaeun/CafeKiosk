@@ -12,7 +12,6 @@
 		503DFC8F2E7BE0F30033951F /* FeatMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DFC882E7BE0F30033951F /* FeatMenuItem.swift */; };
 		503DFC902E7BE0F30033951F /* FeatMenuData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DFC872E7BE0F30033951F /* FeatMenuData.swift */; };
 		503DFC912E7BE0F30033951F /* FeatMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DFC8A2E7BE0F30033951F /* FeatMenuView.swift */; };
-		503DFC922E7BE0F30033951F /* viewcontroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DFC8C2E7BE0F30033951F /* viewcontroller.swift */; };
 		503DFC932E7BE0F30033951F /* FeatMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DFC8B2E7BE0F30033951F /* FeatMenuViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,7 +22,6 @@
 		503DFC892E7BE0F30033951F /* FeatMenuType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatMenuType.swift; sourceTree = "<group>"; };
 		503DFC8A2E7BE0F30033951F /* FeatMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatMenuView.swift; sourceTree = "<group>"; };
 		503DFC8B2E7BE0F30033951F /* FeatMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatMenuViewController.swift; sourceTree = "<group>"; };
-		503DFC8C2E7BE0F30033951F /* viewcontroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = viewcontroller.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -37,6 +35,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		0C11A4BB2E7D6B2C00343D35 /* FeatButton */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = FeatButton;
+			sourceTree = "<group>";
+		};
 		3A1BEFD02E79085500D29D4D /* CafeKiosk */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -82,6 +85,7 @@
 		3A1BEFC52E79085500D29D4D = {
 			isa = PBXGroup;
 			children = (
+				0C11A4BB2E7D6B2C00343D35 /* FeatButton */,
 				50E75F632E7D20AD00741B2B /* MainViewController */,
 				505C83D92E7CF3E800DC9EEF /* DarkMode */,
 				503D2B552E7C115200F027D1 /* LaunchScreen */,
@@ -108,7 +112,6 @@
 				503DFC892E7BE0F30033951F /* FeatMenuType.swift */,
 				503DFC8A2E7BE0F30033951F /* FeatMenuView.swift */,
 				503DFC8B2E7BE0F30033951F /* FeatMenuViewController.swift */,
-				503DFC8C2E7BE0F30033951F /* viewcontroller.swift */,
 			);
 			path = FeatMenu;
 			sourceTree = "<group>";
@@ -129,6 +132,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				0C11A4BB2E7D6B2C00343D35 /* FeatButton */,
 				3A1BEFD02E79085500D29D4D /* CafeKiosk */,
 				503D2B552E7C115200F027D1 /* LaunchScreen */,
 				505C83D92E7CF3E800DC9EEF /* DarkMode */,
@@ -199,7 +203,6 @@
 				503DFC8F2E7BE0F30033951F /* FeatMenuItem.swift in Sources */,
 				503DFC902E7BE0F30033951F /* FeatMenuData.swift in Sources */,
 				503DFC912E7BE0F30033951F /* FeatMenuView.swift in Sources */,
-				503DFC922E7BE0F30033951F /* viewcontroller.swift in Sources */,
 				503DFC932E7BE0F30033951F /* FeatMenuViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
