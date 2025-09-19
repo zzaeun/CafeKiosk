@@ -5,15 +5,16 @@ import UIKit
 extension ViewController{
     
     
-    /// FeatOrderCell의 protocol의 함수.
-    /// +, - 버튼을 눌러 수량이 변경되었을 때 호출
-    ///tableView.indexPath(for: cell) 을 통해 탭한 셀의 indexPath을 확인
-    ///해당 셀의 수량이 0이라면 삭제
-    ///0이 아니라면 newQuantity수량을 orders[menuName]?.quantity에 업데이트
+    
+    // FeatOrderCell 프로토콜 메서드로 셀 수량 변경 시 호출
     func quantityDidChange(for cell: FeatOrderCell, newQuantity: Int) {
+        // 변경이 일어난 셀의 indexPath를 가져옴
         guard let indexPath = orderView.tableView.indexPath(for: cell) else { return }
+        
+        //indexPathf를 이용해 dataArray에 해당 메뉴의 이름을 찾음
         let menuName = dataArray[indexPath.row]
 
+        // 새로운 수량이 0이면 딕셔너리에서 메뉴 삭제
         if newQuantity == 0 {
             orders.removeValue(forKey: menuName)
         } else {
@@ -21,23 +22,27 @@ extension ViewController{
         }
     }
     
-    /// UI변경 메소드
-    ///totalQuantity을 통해 orders.values에 있는 모든 수량을 체크 후 합산
-    ///totalPrice는 금액 합산
-    ///이후 각 프로퍼티에 해당하는 텍스트 업데이트
-    ///순서가 변경되지 않도록 orders.keys값을 가져와 dataArray를 갱신
-    ///이후 reloadData를 통해 셀 재생성
+    // 주문 내역이 변경될 때 UI 업데이트
     func updateTableUI() {
+        //총 수량
         let totalQuantity = orders.values.reduce(0) { $0 + $1.quantity }
+        //총 가격
         let totalPrice = orders.values.reduce(0) { $0 + ($1.price * $1.quantity) }
+        
+        // 숫자를 세 자리마다 쉼표를 찍어주는 포맷터
         let numFormatter = NumberFormatter()
         numFormatter.numberStyle = .decimal
         guard let formatTotalPrice = numFormatter.string(for: totalPrice) else {return}
         guard let formatTotalQuantity = numFormatter.string(for: totalQuantity) else {return}
+        
+        // 포맷터를 이용한 총 수량과 총 가격을 UI에 업데이트
         orderView.totalMenuCount.text = "총 \(formatTotalQuantity)개"
         orderView.totalMenuPrice.text = "\(formatTotalPrice)원"
         
+        // 데이터 배열을 딕셔너리의 키 정렬하여 갱신
         dataArray = orders.keys.sorted()
+        
+        // reloadData로 테이블 뷰 데이터 새로고침
         orderView.tableView.reloadData()
     }
 }

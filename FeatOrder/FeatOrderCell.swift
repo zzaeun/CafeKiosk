@@ -1,14 +1,20 @@
 import Foundation
 import UIKit
 
+
+// cell 수량 변경 프로토콜
 protocol FeatOrderCellDelegate: AnyObject{
     func quantityDidChange(for cell: FeatOrderCell, newQuantity: Int)
 }
 
 class FeatOrderCell: UITableViewCell{
+    
+    //FeatOrderCellDelegate를 채택하는 Weak 참조
     weak var delegate: FeatOrderCellDelegate?
     
+    // 셀 재사용을 위한 고유 식별
     static let identifier = "FeatOrderCell"
+    
     var unitPrice = 0
     let nameLabel = UILabel()
     let plusButton: UIButton = {
