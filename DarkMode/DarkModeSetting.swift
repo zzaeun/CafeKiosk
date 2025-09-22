@@ -1,4 +1,3 @@
-
 import Foundation
 
 @propertyWrapper
@@ -8,7 +7,6 @@ struct DarkModeSetting{
     
     init(){
         self.value = UserDefaults.standard.bool(forKey: key)
-        
     }
     
     var wrappedValue: Bool{
